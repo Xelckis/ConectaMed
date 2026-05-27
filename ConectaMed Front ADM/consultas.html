@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultas | ConectaMed ADM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    
+<aside class="sidebar">
+  <a class="logo" href="dashboard.html">
+    <span class="logo-icon">♡</span>
+    <span>ConectaMed</span>
+  </a>
+
+  <nav class="nav">
+    <a href="dashboard.html" class="">⌂ Dashboard</a>
+    <a href="usuarios.html" class="">👥 Usuários</a>
+    <a href="pacientes.html" class="">♡ Pacientes</a>
+    <a href="#" class="">🧑‍⚕️ Cuidadores</a>
+    <a href="consultas.html" class="active">📅 Consultas</a>
+    <a href="relatorios.html" class="">📊 Relatórios</a>
+    <a href="#" class="">⚙ Configurações</a>
+  </nav>
+
+  <nav class="nav logout">
+    <a href="login-adm.html">↩ Sair</a>
+  </nav>
+</aside>
+
+
+    <main class="main">
+      
+<header class="topbar">
+  <input class="search-input topbar-search" type="text" placeholder="Buscar..." />
+
+  <div class="admin-box">
+    <span class="notification">🔔</span>
+    <div class="admin-info">
+      <strong>Administrador</strong>
+      Admin
+    </div>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+
+      <section class="content">
+        
+<div class="page-header">
+  <div>
+    <h1>Consultas</h1>
+    <p>Acompanhe consultas agendadas, concluídas ou canceladas.</p>
+  </div>
+
+  <button class="btn btn-primary">+ Nova consulta</button>
+</div>
+
+<div class="filters">
+  <input class="search-input" type="text" placeholder="Buscar paciente..." />
+
+  <select class="search-input">
+    <option>Médico</option>
+    <option>Dra. Juliana Silva</option>
+    <option>Dr. Marcos Lima</option>
+  </select>
+
+  <select class="search-input">
+    <option>Status</option>
+    <option>Agendada</option>
+    <option>Confirmada</option>
+    <option>Pendente</option>
+    <option>Cancelada</option>
+  </select>
+
+  <input class="search-input" type="date" />
+</div>
+
+<section class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Especialidade</th>
+        <th>Data</th>
+        <th>Horário</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><strong>Ana Clara</strong></td>
+        <td>Cardiologia</td>
+        <td>25/05/2025</td>
+        <td>14:00</td>
+        <td><span class="badge blue">Agendada</span></td>
+        <td class="actions">👁</td>
+      </tr>
+      <tr>
+        <td><strong>Carlos Mendes</strong></td>
+        <td>Geriatria</td>
+        <td>27/05/2025</td>
+        <td>09:30</td>
+        <td><span class="badge yellow">Pendente</span></td>
+        <td class="actions">👁</td>
+      </tr>
+      <tr>
+        <td><strong>João Silva</strong></td>
+        <td>Clínica Geral</td>
+        <td>28/05/2025</td>
+        <td>11:00</td>
+        <td><span class="badge green">Confirmada</span></td>
+        <td class="actions">👁</td>
+      </tr>
+      <tr>
+        <td><strong>Maria Oliveira</strong></td>
+        <td>Dermatologia</td>
+        <td>29/05/2025</td>
+        <td>15:30</td>
+        <td><span class="badge red">Cancelada</span></td>
+        <td class="actions">👁</td>
+      </tr>
+      <tr>
+        <td><strong>José Ferreira</strong></td>
+        <td>Ortopedia</td>
+        <td>30/05/2025</td>
+        <td>10:00</td>
+        <td><span class="badge blue">Agendada</span></td>
+        <td class="actions">👁</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span>‹</span>
+    <span class="active">1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>›</span>
+  </div>
+</section>
+
+      </section>
+    </main>
+  </div>
+</body>
+</html>

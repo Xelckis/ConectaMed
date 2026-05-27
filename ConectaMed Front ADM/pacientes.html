@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pacientes | ConectaMed ADM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    
+<aside class="sidebar">
+  <a class="logo" href="dashboard.html">
+    <span class="logo-icon">♡</span>
+    <span>ConectaMed</span>
+  </a>
+
+  <nav class="nav">
+    <a href="dashboard.html" class="">⌂ Dashboard</a>
+    <a href="usuarios.html" class="">👥 Usuários</a>
+    <a href="pacientes.html" class="active">♡ Pacientes</a>
+    <a href="#" class="">🧑‍⚕️ Cuidadores</a>
+    <a href="consultas.html" class="">📅 Consultas</a>
+    <a href="relatorios.html" class="">📊 Relatórios</a>
+    <a href="#" class="">⚙ Configurações</a>
+  </nav>
+
+  <nav class="nav logout">
+    <a href="login-adm.html">↩ Sair</a>
+  </nav>
+</aside>
+
+
+    <main class="main">
+      
+<header class="topbar">
+  <input class="search-input topbar-search" type="text" placeholder="Buscar..." />
+
+  <div class="admin-box">
+    <span class="notification">🔔</span>
+    <div class="admin-info">
+      <strong>Administrador</strong>
+      Admin
+    </div>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+
+      <section class="content">
+        
+<div class="page-header">
+  <div>
+    <h1>Gerenciar pacientes</h1>
+    <p>Visualize e gerencie os pacientes cadastrados na plataforma.</p>
+  </div>
+
+  <button class="btn btn-primary">+ Novo paciente</button>
+</div>
+
+<div class="filters">
+  <input class="search-input" type="text" placeholder="Buscar paciente..." />
+
+  <select class="search-input">
+    <option>Status</option>
+    <option>Ativo</option>
+    <option>Pendente</option>
+    <option>Inativo</option>
+  </select>
+</div>
+
+<section class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Responsável</th>
+        <th>Idade</th>
+        <th>Consultas</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><span class="patient-photo">👵</span><strong>Ana Clara</strong></td>
+        <td>João Silva</td>
+        <td>68</td>
+        <td>4</td>
+        <td><span class="badge green">Ativo</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+      <tr>
+        <td><span class="patient-photo">👴</span><strong>Carlos Mendes</strong></td>
+        <td>Maria Santos</td>
+        <td>75</td>
+        <td>2</td>
+        <td><span class="badge green">Ativo</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+      <tr>
+        <td><span class="patient-photo">👴</span><strong>José Ferreira</strong></td>
+        <td>Pedro Lima</td>
+        <td>82</td>
+        <td>3</td>
+        <td><span class="badge green">Ativo</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+      <tr>
+        <td><span class="patient-photo">👵</span><strong>Laura Souza</strong></td>
+        <td>Ana Oliveira</td>
+        <td>70</td>
+        <td>1</td>
+        <td><span class="badge yellow">Pendente</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+      <tr>
+        <td><span class="patient-photo">👵</span><strong>Mariana Lima</strong></td>
+        <td>Lucas Pereira</td>
+        <td>65</td>
+        <td>2</td>
+        <td><span class="badge green">Ativo</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span>‹</span>
+    <span class="active">1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>›</span>
+  </div>
+</section>
+
+      </section>
+    </main>
+  </div>
+</body>
+</html>

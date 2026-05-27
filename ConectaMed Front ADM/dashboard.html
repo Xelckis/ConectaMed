@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | ConectaMed ADM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    
+<aside class="sidebar">
+  <a class="logo" href="dashboard.html">
+    <span class="logo-icon">♡</span>
+    <span>ConectaMed</span>
+  </a>
+
+  <nav class="nav">
+    <a href="dashboard.html" class="active">⌂ Dashboard</a>
+    <a href="usuarios.html" class="">👥 Usuários</a>
+    <a href="pacientes.html" class="">♡ Pacientes</a>
+    <a href="#" class="">🧑‍⚕️ Cuidadores</a>
+    <a href="consultas.html" class="">📅 Consultas</a>
+    <a href="relatorios.html" class="">📊 Relatórios</a>
+    <a href="#" class="">⚙ Configurações</a>
+  </nav>
+
+  <nav class="nav logout">
+    <a href="login-adm.html">↩ Sair</a>
+  </nav>
+</aside>
+
+
+    <main class="main">
+      
+<header class="topbar">
+  <input class="search-input topbar-search" type="text" placeholder="Buscar..." />
+
+  <div class="admin-box">
+    <span class="notification">🔔</span>
+    <div class="admin-info">
+      <strong>Administrador</strong>
+      Admin
+    </div>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+
+      <section class="content">
+        
+<div class="page-header">
+  <div>
+    <h1>Bem-vindo, Administrador! 👋</h1>
+    <p>Aqui está um resumo geral da plataforma.</p>
+  </div>
+</div>
+
+<section class="cards dashboard-cards">
+  <article class="card metric">
+    <div class="metric-icon">👥</div>
+    <h2>248</h2>
+    <p>Usuários cadastrados</p>
+    <span>+12 este mês</span>
+  </article>
+
+  <article class="card metric green">
+    <div class="metric-icon">♡</div>
+    <h2>76</h2>
+    <p>Pacientes ativos</p>
+    <span>+8 este mês</span>
+  </article>
+
+  <article class="card metric">
+    <div class="metric-icon">📅</div>
+    <h2>19</h2>
+    <p>Consultas hoje</p>
+    <span>+5 hoje</span>
+  </article>
+
+  <article class="card metric">
+    <div class="metric-icon">🧑‍⚕️</div>
+    <h2>34</h2>
+    <p>Cuidadores cadastrados</p>
+    <span>+4 este mês</span>
+  </article>
+
+  <article class="card metric red">
+    <div class="metric-icon">⚠</div>
+    <h2>5</h2>
+    <p>Pendências do sistema</p>
+    <span>Ver detalhes</span>
+  </article>
+</section>
+
+<section class="grid-2">
+  <article class="card">
+    <h3>Consultas por mês</h3>
+    <div class="fake-chart">
+      <svg viewBox="0 0 500 250" preserveAspectRatio="none">
+        <polyline points="0,190 80,150 160,90 240,80 320,155 400,130 500,55"
+          fill="none" stroke="#4C91FF" stroke-width="5" />
+      </svg>
+    </div>
+  </article>
+
+  <article class="table-card">
+    <h3 class="table-title">Consultas recentes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Médico</th>
+          <th>Data</th>
+          <th>Horário</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ana Clara</td>
+          <td>Dra. Juliana Silva</td>
+          <td>24/05/2025</td>
+          <td>14:00</td>
+          <td><span class="badge blue">Agendada</span></td>
+        </tr>
+        <tr>
+          <td>Carlos Mendes</td>
+          <td>Dr. Marcos Lima</td>
+          <td>24/05/2025</td>
+          <td>09:30</td>
+          <td><span class="badge green">Confirmada</span></td>
+        </tr>
+        <tr>
+          <td>João Silva</td>
+          <td>Dra. Juliana Silva</td>
+          <td>23/05/2025</td>
+          <td>16:00</td>
+          <td><span class="badge yellow">Pendente</span></td>
+        </tr>
+        <tr>
+          <td>Maria Oliveira</td>
+          <td>Dr. Marcos Lima</td>
+          <td>23/05/2025</td>
+          <td>11:00</td>
+          <td><span class="badge red">Cancelada</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+</section>
+
+      </section>
+    </main>
+  </div>
+</body>
+</html>

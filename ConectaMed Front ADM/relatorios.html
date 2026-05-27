@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatórios | ConectaMed ADM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    
+<aside class="sidebar">
+  <a class="logo" href="dashboard.html">
+    <span class="logo-icon">♡</span>
+    <span>ConectaMed</span>
+  </a>
+
+  <nav class="nav">
+    <a href="dashboard.html" class="">⌂ Dashboard</a>
+    <a href="usuarios.html" class="">👥 Usuários</a>
+    <a href="pacientes.html" class="">♡ Pacientes</a>
+    <a href="#" class="">🧑‍⚕️ Cuidadores</a>
+    <a href="consultas.html" class="">📅 Consultas</a>
+    <a href="relatorios.html" class="active">📊 Relatórios</a>
+    <a href="#" class="">⚙ Configurações</a>
+  </nav>
+
+  <nav class="nav logout">
+    <a href="login-adm.html">↩ Sair</a>
+  </nav>
+</aside>
+
+
+    <main class="main">
+      
+<header class="topbar">
+  <input class="search-input topbar-search" type="text" placeholder="Buscar..." />
+
+  <div class="admin-box">
+    <span class="notification">🔔</span>
+    <div class="admin-info">
+      <strong>Administrador</strong>
+      Admin
+    </div>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+
+      <section class="content">
+        
+<div class="page-header">
+  <div>
+    <h1>Relatórios</h1>
+    <p>Acompanhe o desempenho geral da plataforma.</p>
+  </div>
+
+  <select class="search-input" style="max-width: 260px;">
+    <option>01/05/2025 - 31/05/2025</option>
+    <option>01/04/2025 - 30/04/2025</option>
+    <option>01/03/2025 - 31/03/2025</option>
+  </select>
+</div>
+
+<section class="cards report-cards">
+  <article class="card metric">
+    <div class="metric-icon">👥</div>
+    <h2>248</h2>
+    <p>Usuários totais</p>
+  </article>
+
+  <article class="card metric green">
+    <div class="metric-icon">♡</div>
+    <h2>76</h2>
+    <p>Pacientes ativos</p>
+  </article>
+
+  <article class="card metric">
+    <div class="metric-icon">📅</div>
+    <h2>192</h2>
+    <p>Consultas no período</p>
+  </article>
+</section>
+
+<section class="grid-2-equal">
+  <article class="card">
+    <h3>Consultas por mês</h3>
+    <div class="fake-chart">
+      <svg viewBox="0 0 500 250" preserveAspectRatio="none">
+        <rect x="40" y="145" width="45" height="80" fill="#4C91FF" />
+        <rect x="130" y="105" width="45" height="120" fill="#4C91FF" />
+        <rect x="220" y="90" width="45" height="135" fill="#4C91FF" />
+        <rect x="310" y="55" width="45" height="170" fill="#4C91FF" />
+        <rect x="400" y="25" width="45" height="200" fill="#4C91FF" />
+      </svg>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Tipos de usuários</h3>
+    <div class="donut"></div>
+    <div class="legend">
+      <div><span>🔵 Pacientes</span><strong>40%</strong></div>
+      <div><span>🟢 Cuidadores</span><strong>30%</strong></div>
+      <div><span>🟡 Familiares</span><strong>20%</strong></div>
+      <div><span>🟣 Administradores</span><strong>10%</strong></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Status das consultas</h3>
+    <div class="donut" style="background: conic-gradient(#4C91FF 0 40%, #10B981 40% 70%, #F59E0B 70% 90%, #EF4444 90% 100%);"></div>
+    <div class="legend">
+      <div><span>🔵 Agendadas</span><strong>40%</strong></div>
+      <div><span>🟢 Confirmadas</span><strong>30%</strong></div>
+      <div><span>🟡 Pendentes</span><strong>20%</strong></div>
+      <div><span>🔴 Canceladas</span><strong>10%</strong></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <h3>Resumo geral</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Total de consultas</td>
+          <td><strong>192</strong></td>
+        </tr>
+        <tr>
+          <td>Consultas realizadas</td>
+          <td><strong>96</strong></td>
+        </tr>
+        <tr>
+          <td>Consultas canceladas</td>
+          <td><strong>19</strong></td>
+        </tr>
+        <tr>
+          <td>Taxa de cancelamento</td>
+          <td><strong>9.9%</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+</section>
+
+      </section>
+    </main>
+  </div>
+</body>
+</html>

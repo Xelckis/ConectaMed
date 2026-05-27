@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usuários | ConectaMed ADM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    
+<aside class="sidebar">
+  <a class="logo" href="dashboard.html">
+    <span class="logo-icon">♡</span>
+    <span>ConectaMed</span>
+  </a>
+
+  <nav class="nav">
+    <a href="dashboard.html" class="">⌂ Dashboard</a>
+    <a href="usuarios.html" class="active">👥 Usuários</a>
+    <a href="pacientes.html" class="">♡ Pacientes</a>
+    <a href="#" class="">🧑‍⚕️ Cuidadores</a>
+    <a href="consultas.html" class="">📅 Consultas</a>
+    <a href="relatorios.html" class="">📊 Relatórios</a>
+    <a href="#" class="">⚙ Configurações</a>
+  </nav>
+
+  <nav class="nav logout">
+    <a href="login-adm.html">↩ Sair</a>
+  </nav>
+</aside>
+
+
+    <main class="main">
+      
+<header class="topbar">
+  <input class="search-input topbar-search" type="text" placeholder="Buscar..." />
+
+  <div class="admin-box">
+    <span class="notification">🔔</span>
+    <div class="admin-info">
+      <strong>Administrador</strong>
+      Admin
+    </div>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+
+      <section class="content">
+        
+<div class="page-header">
+  <div>
+    <h1>Gerenciar usuários</h1>
+    <p>Visualize, edite ou bloqueie contas cadastradas na plataforma.</p>
+  </div>
+
+  <button class="btn btn-primary">+ Novo usuário</button>
+</div>
+
+<div class="filters">
+  <input class="search-input" type="text" placeholder="Buscar usuário..." />
+
+  <select class="search-input">
+    <option>Tipo de usuário</option>
+    <option>Paciente</option>
+    <option>Cuidador</option>
+    <option>Familiar</option>
+    <option>Administrador</option>
+  </select>
+
+  <select class="search-input">
+    <option>Status</option>
+    <option>Ativo</option>
+    <option>Pendente</option>
+    <option>Bloqueado</option>
+  </select>
+</div>
+
+<section class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>E-mail</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><strong>João Silva</strong></td>
+        <td>Paciente</td>
+        <td>joao@email.com</td>
+        <td><span class="badge green">Ativo</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+      <tr>
+        <td><strong>Maria Santos</strong></td>
+        <td>Cuidador</td>
+        <td>maria@email.com</td>
+        <td><span class="badge green">Ativo</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+      <tr>
+        <td><strong>Pedro Lima</strong></td>
+        <td>Familiar</td>
+        <td>pedro@email.com</td>
+        <td><span class="badge yellow">Pendente</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+      <tr>
+        <td><strong>Ana Oliveira</strong></td>
+        <td>Paciente</td>
+        <td>ana@email.com</td>
+        <td><span class="badge green">Ativo</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+      <tr>
+        <td><strong>Lucas Pereira</strong></td>
+        <td>Cuidador</td>
+        <td>lucas@email.com</td>
+        <td><span class="badge red">Bloqueado</span></td>
+        <td class="actions">👁 ✎ ⋮</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span>‹</span>
+    <span class="active">1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>5</span>
+    <span>›</span>
+  </div>
+</section>
+
+      </section>
+    </main>
+  </div>
+</body>
+</html>
