@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.13.5 on linux)" generated="2026-06-04T03:59:13.510554" rpa="false" schemaversion="5">
+<suite id="s1" name="Edicao Agendamento" source="/mnt/data/robot_edicao_agendamento_run/edicao_agendamento.robot">
+<kw name="Dado que o usuário acessa o modal de edição de agendamento" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.552088" level="INFO">Opening browser 'chrome' to base url 'http://localhost:5173/agenda'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.551890" elapsed="0.000280"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.552333" level="INFO">Maximizing browser window.</msg>
+<status status="PASS" start="2026-06-04T03:59:13.552276" elapsed="0.000091"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.551460" elapsed="0.000953"/>
+</kw>
+<test id="s1-t1" name="CT01 - Deve editar agendamento com sucesso" line="18">
+<kw name="Dado que o usuário altera o início para">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.553299" level="INFO">Typing text into text field 'id=startTimeEdit'.</msg>
+<arg>${INPUT_INICIO}</arg>
+<arg>${inicio}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.553165" elapsed="0.000171"/>
+</kw>
+<arg>20/11/2026 14:00</arg>
+<status status="PASS" start="2026-06-04T03:59:13.552925" elapsed="0.000459"/>
+</kw>
+<kw name="E altera o término para">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.553763" level="INFO">Typing text into text field 'id=endTimeEdit'.</msg>
+<arg>${INPUT_TERMINO}</arg>
+<arg>${termino}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.553657" elapsed="0.000151"/>
+</kw>
+<arg>20/11/2026 15:00</arg>
+<status status="PASS" start="2026-06-04T03:59:13.553479" elapsed="0.000366"/>
+</kw>
+<kw name="Quando solicitar a gravação da edição">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.554222" level="INFO">Clicking button 'id=btnSalvarEdicao'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.554078" elapsed="0.000180"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.553939" elapsed="0.000354"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.554609" level="INFO">Verifying element 'Agendamento atualizado com sucesso.' contains exact text 'Agendamento atualizado com sucesso.'.</msg>
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.554527" elapsed="0.000124"/>
+</kw>
+<arg>Agendamento atualizado com sucesso.</arg>
+<status status="PASS" start="2026-06-04T03:59:13.554372" elapsed="0.000314"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.552473" elapsed="0.002293"/>
+</test>
+<test id="s1-t2" name="CT02 - Deve validar acesso negado" line="24">
+<kw name="Dado que o usuário altera o início para">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.555641" level="INFO">Typing text into text field 'id=startTimeEdit'.</msg>
+<arg>${INPUT_INICIO}</arg>
+<arg>${inicio}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.555448" elapsed="0.000235"/>
+</kw>
+<arg>20/11/2026 14:00</arg>
+<status status="PASS" start="2026-06-04T03:59:13.555268" elapsed="0.000458"/>
+</kw>
+<kw name="E altera o término para">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.556107" level="INFO">Typing text into text field 'id=endTimeEdit'.</msg>
+<arg>${INPUT_TERMINO}</arg>
+<arg>${termino}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.556009" elapsed="0.000127"/>
+</kw>
+<arg>20/11/2026 15:00</arg>
+<status status="PASS" start="2026-06-04T03:59:13.555830" elapsed="0.000342"/>
+</kw>
+<kw name="Quando solicitar a gravação da edição">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.557172" level="INFO">Clicking button 'id=btnSalvarEdicao'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.557003" elapsed="0.000213"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.556248" elapsed="0.001012"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.557695" level="INFO">Verifying element 'Você não tem permissão para modificar este evento.' contains exact text 'Você não tem permissão para modificar este evento.'.</msg>
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.557580" elapsed="0.000151"/>
+</kw>
+<arg>Você não tem permissão para modificar este evento.</arg>
+<status status="PASS" start="2026-06-04T03:59:13.557385" elapsed="0.000391"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.554976" elapsed="0.002887"/>
+</test>
+<test id="s1-t3" name="CT03 - Deve validar horário de término anterior ao início" line="30">
+<kw name="Dado que o usuário altera o início para">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.558667" level="INFO">Typing text into text field 'id=startTimeEdit'.</msg>
+<arg>${INPUT_INICIO}</arg>
+<arg>${inicio}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.558540" elapsed="0.000160"/>
+</kw>
+<arg>20/11/2026 10:00</arg>
+<status status="PASS" start="2026-06-04T03:59:13.558361" elapsed="0.000378"/>
+</kw>
+<kw name="E altera o término para">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.559102" level="INFO">Typing text into text field 'id=endTimeEdit'.</msg>
+<arg>${INPUT_TERMINO}</arg>
+<arg>${termino}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.558997" elapsed="0.000141"/>
+</kw>
+<arg>20/11/2026 09:00</arg>
+<status status="PASS" start="2026-06-04T03:59:13.558817" elapsed="0.000366"/>
+</kw>
+<kw name="Quando solicitar a gravação da edição">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.559569" level="INFO">Clicking button 'id=btnSalvarEdicao'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.559396" elapsed="0.000223"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.559262" elapsed="0.000408"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.559992" level="INFO">Verifying element 'O horário de término deve ser posterior ao horário de início.' contains exact text 'O horário de término deve ser posterior ao horário de início.'.</msg>
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.559889" elapsed="0.000143"/>
+</kw>
+<arg>O horário de término deve ser posterior ao horário de início.</arg>
+<status status="PASS" start="2026-06-04T03:59:13.559750" elapsed="0.000326"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.558089" elapsed="0.002051"/>
+</test>
+<test id="s1-t4" name="CT04 - Deve validar conflito de horário na edição" line="36">
+<kw name="Dado que o usuário altera o início para">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.560897" level="INFO">Typing text into text field 'id=startTimeEdit'.</msg>
+<arg>${INPUT_INICIO}</arg>
+<arg>${inicio}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.560783" elapsed="0.000147"/>
+</kw>
+<arg>20/11/2026 16:00</arg>
+<status status="PASS" start="2026-06-04T03:59:13.560586" elapsed="0.000380"/>
+</kw>
+<kw name="E altera o término para">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.561341" level="INFO">Typing text into text field 'id=endTimeEdit'.</msg>
+<arg>${INPUT_TERMINO}</arg>
+<arg>${termino}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.561231" elapsed="0.000139"/>
+</kw>
+<arg>20/11/2026 17:00</arg>
+<status status="PASS" start="2026-06-04T03:59:13.561057" elapsed="0.000347"/>
+</kw>
+<kw name="Quando solicitar a gravação da edição">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.561732" level="INFO">Clicking button 'id=btnSalvarEdicao'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.561609" elapsed="0.000364"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.561478" elapsed="0.000562"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.562531" level="INFO">Verifying element 'Já existe um compromisso agendado para este horário.' contains exact text 'Já existe um compromisso agendado para este horário.'.</msg>
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T03:59:13.562409" elapsed="0.000161"/>
+</kw>
+<arg>Já existe um compromisso agendado para este horário.</arg>
+<status status="PASS" start="2026-06-04T03:59:13.562172" elapsed="0.000441"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.560323" elapsed="0.002355"/>
+</test>
+<kw name="E fecha o navegador" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:59:13.563337" level="INFO">Closing browser.</msg>
+<status status="PASS" start="2026-06-04T03:59:13.563285" elapsed="0.000089"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.563148" elapsed="0.000270"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:59:13.512299" elapsed="0.051139"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Edicao Agendamento" id="s1" pass="4" fail="0" skip="0">Edicao Agendamento</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
