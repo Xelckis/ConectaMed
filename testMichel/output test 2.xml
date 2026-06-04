@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.13.5 on linux)" generated="2026-06-04T04:11:50.438384" rpa="false" schemaversion="5">
+<suite id="s1" name="Rede Apoio" source="/mnt/data/robot_rede_apoio_run/rede_apoio.robot">
+<kw name="Dado que o usuário acessa a tela de rede de apoio" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.473648" elapsed="0.000217"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<status status="PASS" start="2026-06-04T04:11:50.473980" elapsed="0.000078"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.473242" elapsed="0.000877"/>
+</kw>
+<test id="s1-t1" name="CT01 - Deve adicionar membro com sucesso" line="16">
+<kw name="Dado que o usuário informa o email">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.474924" elapsed="0.000143"/>
+</kw>
+<arg>enfermeiro@email.com</arg>
+<status status="PASS" start="2026-06-04T04:11:50.474674" elapsed="0.000453"/>
+</kw>
+<kw name="Quando solicitar o convite">
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${BOTAO_CONVIDAR}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.475405" elapsed="0.000107"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.475227" elapsed="0.000348"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.475839" elapsed="0.000102"/>
+</kw>
+<arg>Membro adicionado à rede de apoio.</arg>
+<status status="PASS" start="2026-06-04T04:11:50.475671" elapsed="0.000311"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.474171" elapsed="0.001883"/>
+</test>
+<test id="s1-t2" name="CT02 - Deve validar email inválido" line="21">
+<kw name="Dado que o usuário informa o email">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.476696" elapsed="0.000118"/>
+</kw>
+<arg>enfermeiroemail.com</arg>
+<status status="PASS" start="2026-06-04T04:11:50.476504" elapsed="0.000351"/>
+</kw>
+<kw name="Quando solicitar o convite">
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${BOTAO_CONVIDAR}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.477050" elapsed="0.000120"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.476930" elapsed="0.000275"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.477486" elapsed="0.000133"/>
+</kw>
+<arg>E-mail inválido.</arg>
+<status status="PASS" start="2026-06-04T04:11:50.477295" elapsed="0.000379"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.476251" elapsed="0.001504"/>
+</test>
+<test id="s1-t3" name="CT03 - Deve validar falta de privilégio (Membro comum logado)" line="26">
+<kw name="Dado que o usuário informa o email">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.478555" elapsed="0.000109"/>
+</kw>
+<arg>cuidador@email.com</arg>
+<status status="PASS" start="2026-06-04T04:11:50.478381" elapsed="0.000324"/>
+</kw>
+<kw name="Quando solicitar o convite">
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${BOTAO_CONVIDAR}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.478969" elapsed="0.000085"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.478795" elapsed="0.000294"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.479289" elapsed="0.000086"/>
+</kw>
+<arg>Apenas administradores podem gerir a rede de apoio.</arg>
+<status status="PASS" start="2026-06-04T04:11:50.479159" elapsed="0.000249"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.477938" elapsed="0.001526"/>
+</test>
+<test id="s1-t4" name="CT04 - Deve validar utilizador não encontrado" line="31">
+<kw name="Dado que o usuário informa o email">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.480125" elapsed="0.000115"/>
+</kw>
+<arg>naoexiste@email.com</arg>
+<status status="PASS" start="2026-06-04T04:11:50.479952" elapsed="0.000331"/>
+</kw>
+<kw name="Quando solicitar o convite">
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${BOTAO_CONVIDAR}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.480518" elapsed="0.000120"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.480357" elapsed="0.000321"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T04:11:50.480902" elapsed="0.000118"/>
+</kw>
+<arg>Utilizador com este e-mail não encontrado no sistema.</arg>
+<status status="PASS" start="2026-06-04T04:11:50.480754" elapsed="0.000306"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.479690" elapsed="0.001424"/>
+</test>
+<kw name="E fecha o navegador" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<status status="PASS" start="2026-06-04T04:11:50.481622" elapsed="0.000055"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.481500" elapsed="0.000218"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:11:50.440103" elapsed="0.041632"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Rede Apoio" id="s1" pass="4" fail="0" skip="0">Rede Apoio</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

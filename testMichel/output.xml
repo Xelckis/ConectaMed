@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.13.5 on linux)" generated="2026-06-04T04:03:44.843181" rpa="false" schemaversion="5">
+<suite id="s1" name="Agendamento" source="/mnt/data/robot_agendamento_run/agendamento.robot">
+<kw name="Dado que o usuário acessa a tela de agenda" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.872162" elapsed="0.000159"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<status status="PASS" start="2026-06-04T04:03:44.872425" elapsed="0.000070"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.871833" elapsed="0.000706"/>
+</kw>
+<test id="s1-t1" name="CT01 - Deve realizar agendamento com sucesso" line="18">
+<kw name="Dado que o usuário informa o título">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_TITULO}</arg>
+<arg>${titulo}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.873105" elapsed="0.000114"/>
+</kw>
+<arg>Consulta de Rotina</arg>
+<status status="PASS" start="2026-06-04T04:03:44.872907" elapsed="0.000357"/>
+</kw>
+<kw name="E informa o início">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_INICIO}</arg>
+<arg>${inicio}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.876505" elapsed="0.000171"/>
+</kw>
+<arg>15/10/2026 14:00</arg>
+<status status="PASS" start="2026-06-04T04:03:44.873349" elapsed="0.003380"/>
+</kw>
+<kw name="E informa o término">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_TERMINO}</arg>
+<arg>${termino}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.877001" elapsed="0.000117"/>
+</kw>
+<arg>15/10/2026 15:00</arg>
+<status status="PASS" start="2026-06-04T04:03:44.876828" elapsed="0.000331"/>
+</kw>
+<kw name="Quando solicitar o agendamento">
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${BOTAO_AGENDAR}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.877365" elapsed="0.000076"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.877237" elapsed="0.000238"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.877673" elapsed="0.000085"/>
+</kw>
+<arg>Agendamento criado com sucesso.</arg>
+<status status="PASS" start="2026-06-04T04:03:44.877545" elapsed="0.000247"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.872583" elapsed="0.005273"/>
+</test>
+<test id="s1-t2" name="CT02 - Deve validar título obrigatório" line="25">
+<kw name="Dado que o usuário informa o título">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_TITULO}</arg>
+<arg>${titulo}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.878830" elapsed="0.000675"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.878323" elapsed="0.001270"/>
+</kw>
+<kw name="E informa o início">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_INICIO}</arg>
+<arg>${inicio}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.879944" elapsed="0.000138"/>
+</kw>
+<arg>15/10/2026 14:00</arg>
+<status status="PASS" start="2026-06-04T04:03:44.879726" elapsed="0.000402"/>
+</kw>
+<kw name="E informa o término">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_TERMINO}</arg>
+<arg>${termino}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.880381" elapsed="0.000113"/>
+</kw>
+<arg>15/10/2026 15:00</arg>
+<status status="PASS" start="2026-06-04T04:03:44.880213" elapsed="0.000319"/>
+</kw>
+<kw name="Quando solicitar o agendamento">
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${BOTAO_AGENDAR}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.880741" elapsed="0.000085"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.880607" elapsed="0.000253"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.881077" elapsed="0.000089"/>
+</kw>
+<arg>O campo título é obrigatório.</arg>
+<status status="PASS" start="2026-06-04T04:03:44.880934" elapsed="0.000266"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.878063" elapsed="0.003200"/>
+</test>
+<test id="s1-t3" name="CT03 - Deve validar horário de término anterior ao início" line="32">
+<kw name="Dado que o usuário informa o título">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_TITULO}</arg>
+<arg>${titulo}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.881851" elapsed="0.000105"/>
+</kw>
+<arg>Fisioterapia</arg>
+<status status="PASS" start="2026-06-04T04:03:44.881685" elapsed="0.000313"/>
+</kw>
+<kw name="E informa o início">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_INICIO}</arg>
+<arg>${inicio}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.882214" elapsed="0.000095"/>
+</kw>
+<arg>15/10/2026 15:00</arg>
+<status status="PASS" start="2026-06-04T04:03:44.882070" elapsed="0.000275"/>
+</kw>
+<kw name="E informa o término">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_TERMINO}</arg>
+<arg>${termino}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.882557" elapsed="0.000099"/>
+</kw>
+<arg>15/10/2026 14:00</arg>
+<status status="PASS" start="2026-06-04T04:03:44.882414" elapsed="0.000277"/>
+</kw>
+<kw name="Quando solicitar o agendamento">
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${BOTAO_AGENDAR}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.882884" elapsed="0.000074"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.882759" elapsed="0.000231"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.883180" elapsed="0.000082"/>
+</kw>
+<arg>O horário de término deve ser posterior ao horário de início.</arg>
+<status status="PASS" start="2026-06-04T04:03:44.883054" elapsed="0.000240"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.881429" elapsed="0.001919"/>
+</test>
+<test id="s1-t4" name="CT04 - Deve validar conflito de horário" line="39">
+<kw name="Dado que o usuário informa o título">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_TITULO}</arg>
+<arg>${titulo}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.883990" elapsed="0.000105"/>
+</kw>
+<arg>Consulta Conflitante</arg>
+<status status="PASS" start="2026-06-04T04:03:44.883828" elapsed="0.000308"/>
+</kw>
+<kw name="E informa o início">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_INICIO}</arg>
+<arg>${inicio}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.884349" elapsed="0.000098"/>
+</kw>
+<arg>15/10/2026 14:30</arg>
+<status status="PASS" start="2026-06-04T04:03:44.884208" elapsed="0.000275"/>
+</kw>
+<kw name="E informa o término">
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${INPUT_TERMINO}</arg>
+<arg>${termino}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.884685" elapsed="0.000093"/>
+</kw>
+<arg>15/10/2026 15:30</arg>
+<status status="PASS" start="2026-06-04T04:03:44.884550" elapsed="0.000260"/>
+</kw>
+<kw name="Quando solicitar o agendamento">
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>${BOTAO_AGENDAR}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.884986" elapsed="0.000075"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.884874" elapsed="0.000217"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T04:03:44.885277" elapsed="0.000091"/>
+</kw>
+<arg>Já existe um compromisso agendado para este horário.</arg>
+<status status="PASS" start="2026-06-04T04:03:44.885153" elapsed="0.000250"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.883544" elapsed="0.001915"/>
+</test>
+<kw name="E fecha o navegador" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<status status="PASS" start="2026-06-04T04:03:44.885928" elapsed="0.000050"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.885832" elapsed="0.000316"/>
+</kw>
+<status status="PASS" start="2026-06-04T04:03:44.844482" elapsed="0.041712"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Agendamento" id="s1" pass="4" fail="0" skip="0">Agendamento</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
