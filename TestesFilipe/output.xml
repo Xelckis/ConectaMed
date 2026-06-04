@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.13.5 on linux)" generated="2026-06-04T03:53:40.712818" rpa="false" schemaversion="5">
+<suite id="s1" name="Login" source="/mnt/data/robot_login_run/login.robot">
+<kw name="Dado que o usuário acessa a tela de login" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.749738" level="INFO">Opening browser 'chrome' to base url 'http://localhost:5173/login'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.749524" elapsed="0.000794"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.750681" level="INFO">Maximizing browser window.</msg>
+<status status="PASS" start="2026-06-04T03:53:40.750569" elapsed="0.000165"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.749203" elapsed="0.001601"/>
+</kw>
+<test id="s1-t1" name="CT01 - Deve realizar login com sucesso" line="17">
+<kw name="Dado que o usuário informa o email">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.751919" level="INFO">Typing text into text field 'id=email'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.751735" elapsed="0.000224"/>
+</kw>
+<arg>maria@email.com</arg>
+<status status="PASS" start="2026-06-04T03:53:40.751384" elapsed="0.000637"/>
+</kw>
+<kw name="E informa a senha">
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.752442" level="INFO">Typing password into text field 'id=password'.</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>${senha}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.752338" elapsed="0.000140"/>
+</kw>
+<arg>SenhaSegura123</arg>
+<status status="PASS" start="2026-06-04T03:53:40.752152" elapsed="0.000364"/>
+</kw>
+<kw name="Quando solicitar o login">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.752800" level="INFO">Clicking button 'id=btnLogin'.</msg>
+<arg>${BOTAO_LOGIN}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.752727" elapsed="0.000102"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.752596" elapsed="0.000265"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.753239" level="INFO">Verifying element 'Login efetuado com sucesso' contains exact text 'Login efetuado com sucesso'.</msg>
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.753110" elapsed="0.000169"/>
+</kw>
+<arg>Login efetuado com sucesso</arg>
+<status status="PASS" start="2026-06-04T03:53:40.752938" elapsed="0.000394"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.750876" elapsed="0.002537"/>
+</test>
+<test id="s1-t2" name="CT02 - Deve validar email obrigatório" line="23">
+<kw name="Dado que o usuário informa o email">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.754461" level="INFO">Typing text into text field 'id=email'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.754338" elapsed="0.000156"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.753914" elapsed="0.000620"/>
+</kw>
+<kw name="E informa a senha">
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.754867" level="INFO">Typing password into text field 'id=password'.</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>${senha}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.754767" elapsed="0.000145"/>
+</kw>
+<arg>SenhaSegura123</arg>
+<status status="PASS" start="2026-06-04T03:53:40.754614" elapsed="0.000340"/>
+</kw>
+<kw name="Quando solicitar o login">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.755279" level="INFO">Clicking button 'id=btnLogin'.</msg>
+<arg>${BOTAO_LOGIN}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.755207" elapsed="0.000101"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.755055" elapsed="0.000285"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.755642" level="INFO">Verifying element 'E-mail obrigatório.' contains exact text 'E-mail obrigatório.'.</msg>
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.755556" elapsed="0.000115"/>
+</kw>
+<arg>E-mail obrigatório.</arg>
+<status status="PASS" start="2026-06-04T03:53:40.755412" elapsed="0.000292"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.753632" elapsed="0.002139"/>
+</test>
+<test id="s1-t3" name="CT03 - Deve validar senha obrigatória" line="29">
+<kw name="Dado que o usuário informa o email">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.756455" level="INFO">Typing text into text field 'id=email'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.756352" elapsed="0.000138"/>
+</kw>
+<arg>maria@email.com</arg>
+<status status="PASS" start="2026-06-04T03:53:40.756189" elapsed="0.000340"/>
+</kw>
+<kw name="E informa a senha">
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.757116" level="INFO">Typing password into text field 'id=password'.</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>${senha}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.757014" elapsed="0.000133"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.756605" elapsed="0.000577"/>
+</kw>
+<kw name="Quando solicitar o login">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.757450" level="INFO">Clicking button 'id=btnLogin'.</msg>
+<arg>${BOTAO_LOGIN}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.757380" elapsed="0.000096"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.757256" elapsed="0.000250"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.757777" level="INFO">Verifying element 'Senha obrigatória.' contains exact text 'Senha obrigatória.'.</msg>
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.757703" elapsed="0.000102"/>
+</kw>
+<arg>Senha obrigatória.</arg>
+<status status="PASS" start="2026-06-04T03:53:40.757575" elapsed="0.000261"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.755957" elapsed="0.001934"/>
+</test>
+<test id="s1-t4" name="CT04 - Deve validar credenciais incorretas" line="35">
+<kw name="Dado que o usuário informa o email">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.758594" level="INFO">Typing text into text field 'id=email'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.758466" elapsed="0.000169"/>
+</kw>
+<arg>maria@email.com</arg>
+<status status="PASS" start="2026-06-04T03:53:40.758293" elapsed="0.000383"/>
+</kw>
+<kw name="E informa a senha">
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.759047" level="INFO">Typing password into text field 'id=password'.</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>${senha}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.758929" elapsed="0.000160"/>
+</kw>
+<arg>SenhaErrada</arg>
+<status status="PASS" start="2026-06-04T03:53:40.758756" elapsed="0.000387"/>
+</kw>
+<kw name="Quando solicitar o login">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.759507" level="INFO">Clicking button 'id=btnLogin'.</msg>
+<arg>${BOTAO_LOGIN}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.759412" elapsed="0.000166"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.759248" elapsed="0.000371"/>
+</kw>
+<kw name="Então o sistema deve apresentar a mensagem">
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.759922" level="INFO">Verifying element 'E-mail ou senha incorretos.' contains exact text 'E-mail ou senha incorretos.'.</msg>
+<arg>${MENSAGEM}</arg>
+<arg>${mensagem}</arg>
+<status status="PASS" start="2026-06-04T03:53:40.759842" elapsed="0.000111"/>
+</kw>
+<arg>E-mail ou senha incorretos.</arg>
+<status status="PASS" start="2026-06-04T03:53:40.759698" elapsed="0.000458"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.758052" elapsed="0.002224"/>
+</test>
+<kw name="E fecha o navegador" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<msg time="2026-06-04T03:53:40.761004" level="INFO">Closing browser.</msg>
+<status status="PASS" start="2026-06-04T03:53:40.760926" elapsed="0.000139"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.760756" elapsed="0.000362"/>
+</kw>
+<status status="PASS" start="2026-06-04T03:53:40.714461" elapsed="0.046686"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Login" id="s1" pass="4" fail="0" skip="0">Login</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
