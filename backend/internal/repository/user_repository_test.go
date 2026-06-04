@@ -2,7 +2,6 @@ package repository_test
 
 import (
 	"context"
-	"os"
 	"testing"
 
 	"conectamed/internal/models"
@@ -14,7 +13,7 @@ import (
 )
 
 func TestUserRepository_Create(t *testing.T) {
-	dbURL := os.Getenv("TEST_DATABASE_URL")
+	dbURL := "postgresql://conectamed_db:conectamed_db@localhost:5432/conectamed?sslmode=disable"
 	if dbURL == "" {
 		t.Skip("Pulando teste de integração: TEST_DATABASE_URL não configurada")
 	}
@@ -43,7 +42,7 @@ func TestUserRepository_Create(t *testing.T) {
 }
 
 func TestUserRepository_FindByEmail(t *testing.T) {
-	dbURL := os.Getenv("TEST_DATABASE_URL")
+	dbURL := "postgresql://conectamed_db:conectamed_db@localhost:5432/conectamed?sslmode=disable"
 	if dbURL == "" {
 		t.Skip("Pulando teste de integração: TEST_DATABASE_URL não configurada")
 	}

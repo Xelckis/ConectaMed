@@ -36,5 +36,9 @@ func (r *UserRepository) FindByEmail(ctx context.Context, email string) (*models
 		&user.CreatedAt,
 	)
 
+	if err != nil {
+		return nil, err
+	}
+
 	return &user, err
 }

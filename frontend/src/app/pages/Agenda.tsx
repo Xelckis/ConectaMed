@@ -1,330 +1,227 @@
-import { useState } from 'react';
-import { Calendar, Clock, MapPin, Plus, ChevronLeft, ChevronRight, Grid3x3, List } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { getPatients, getPatientAppointments, createAppointment, updateAppointment, deleteAppointment } from '../../lib/api';
+import { Appointment, Patient } from '../types';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Badge } from '../components/ui/Badge';
-import { Avatar } from '../components/ui/Avatar';
-import { Modal } from '../components/ui/Modal';
 import { Input } from '../components/ui/Input';
-import { Select } from '../components/ui/Select';
-import { Textarea } from '../components/ui/Textarea';
-import { mockAppointments, mockPatients, mockUsers } from '../data/mockData';
-import { format, parseISO, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { Skeleton } from '../components/ui/Skeleton';
 
 export function Agenda() {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [view, setView] = useState<'month' | 'list'>('month');
-  const [isNewAppointmentOpen, setIsNewAppointmentOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const { token } = useAuth();
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [patient, setPatient] = useState<Patient | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const monthStart = startOfMonth(currentDate);
-  const monthEnd = endOfMonth(currentDate);
-  const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
+  // Estados para o Modal e Formulário
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingAppId, setEditingAppId] = useState<string | null>(null);
+  const [title, setTitle] = useState('');
+  const [specialty, setSpecialty] = useState('');
+  const [location, setLocation] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modalError, setModalError] = useState('');
 
-  const scheduledAppointments = mockAppointments
-    .filter(apt => apt.status === 'scheduled')
-    .sort((a, b) => parseISO(a.date).getTime() - parseISO(b.date).getTime());
+  async function loadAgenda() {
+    if (!token) return;
+    try {
+      setIsLoading(true);
+      const patients = await getPatients(token);
+      if (patients.length > 0) {
+        const activePatient = patients[0];
+        setPatient(activePatient);
+        const data = await getPatientAppointments(token, activePatient.id);
+        setAppointments(data);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar agenda:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
-  const getAppointmentsForDay = (day: Date) => {
-    return mockAppointments.filter(apt =>
-      isSameDay(parseISO(apt.date), day) && apt.status === 'scheduled'
-    );
+  useEffect(() => {
+    loadAgenda();
+  }, [token]);
+
+  const resetForm = () => {
+    setEditingAppId(null);
+    setTitle('');
+    setSpecialty('');
+    setLocation('');
+    setStartTime('');
+    setEndTime('');
+    setModalError('');
+    setIsModalOpen(false);
   };
 
-  const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
-  const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
+  const handleOpenNew = () => {
+    resetForm();
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEdit = (app: Appointment) => {
+    setEditingAppId(app.id);
+    setTitle(app.title);
+    setSpecialty(app.specialty || '');
+    setLocation(app.location || '');
+    // Ajuste para o input datetime-local (formato YYYY-MM-DDTHH:mm)
+    setStartTime(new Date(app.startTime).toISOString().slice(0, 16));
+    setEndTime(new Date(app.endTime).toISOString().slice(0, 16));
+    setModalError('');
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (appId: string) => {
+    if (!token) return;
+    if (!window.confirm("Tem a certeza que deseja cancelar esta consulta?")) return;
+    
+    try {
+      await deleteAppointment(token, appId);
+      await loadAgenda();
+    } catch (err: any) {
+      alert(err.message || 'Erro ao cancelar. Você não tem permissão para excluir este evento.');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!token || !patient) return;
+
+    setModalError('');
+    if (new Date(endTime) <= new Date(startTime)) {
+      setModalError('O horário de término deve ser posterior ao horário de início.');
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      
+      const payload = {
+        title,
+        specialty,
+        location,
+        start_time: new Date(startTime).toISOString(),
+        end_time: new Date(endTime).toISOString(),
+      };
+
+      if (editingAppId) {
+        await updateAppointment(token, editingAppId, payload);
+      } else {
+        await createAppointment(token, {
+          ...payload,
+          patient_id: patient.id,
+          can_edit_user_ids: []
+        });
+      }
+
+      resetForm();
+      await loadAgenda();
+    } catch (err: any) {
+      setModalError(err.message || 'Erro ao processar consulta. Verifique os dados ou as suas permissões.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isLoading) return <div className="p-8"><Skeleton className="h-64 w-full max-w-2xl" /></div>;
+  if (!patient) return <div className="p-8 text-slate-500">Vá ao Dashboard e cadastre um paciente primeiro.</div>;
 
   return (
-    <div className="p-6 lg:p-8 space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div className="p-8 max-w-4xl mx-auto relative min-h-screen">
+      <div className="mb-8 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Agenda</h1>
-          <p className="text-muted-foreground mt-1">
-            Gerencie suas consultas e compromissos médicos
-          </p>
+          <h1 className="text-3xl font-bold text-slate-800">Agenda Médica</h1>
+          <p className="text-slate-500 mt-2">A visualizar a agenda de: <strong className="text-slate-700">{patient.name}</strong></p>
         </div>
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={() => setIsNewAppointmentOpen(true)}
-          className="gap-2"
-        >
-          <Plus className="w-5 h-5" />
-          Nova Consulta
-        </Button>
+        <Button onClick={handleOpenNew}>+ Nova Consulta</Button>
       </div>
 
-      <Card className="p-6">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={handlePrevMonth}>
-              <ChevronLeft className="w-5 h-5" />
-            </Button>
-            <h2 className="text-xl font-semibold">
-              {format(currentDate, 'MMMM yyyy', { locale: ptBR })}
-            </h2>
-            <Button variant="ghost" size="sm" onClick={handleNextMonth}>
-              <ChevronRight className="w-5 h-5" />
-            </Button>
-          </div>
-          <div className="flex gap-2">
-            <Button
-              variant={view === 'month' ? 'primary' : 'outline'}
-              size="sm"
-              onClick={() => setView('month')}
-            >
-              <Grid3x3 className="w-4 h-4" />
-            </Button>
-            <Button
-              variant={view === 'list' ? 'primary' : 'outline'}
-              size="sm"
-              onClick={() => setView('list')}
-            >
-              <List className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-
-        {view === 'month' ? (
-          <div className="space-y-4">
-            <div className="grid grid-cols-7 gap-2 mb-2">
-              {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((day) => (
-                <div key={day} className="text-center text-sm font-medium text-muted-foreground py-2">
-                  {day}
+      {appointments.length === 0 ? (
+        <Card className="bg-slate-50 border-dashed">
+          <CardContent className="p-8 text-center text-slate-500">
+            Não há consultas agendadas para este paciente.
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="space-y-4">
+          {appointments.map((app) => (
+            <Card key={app.id} className="border-l-4 border-l-blue-500 shadow-sm hover:shadow-md transition-shadow">
+              <CardContent className="p-6 flex justify-between items-center">
+                <div>
+                  <h2 className="text-xl font-semibold text-slate-800">{app.title}</h2>
+                  <p className="text-slate-600">{app.specialty} {app.location && `• ${app.location}`}</p>
+                  
+                  <div className="mt-3 flex gap-2">
+                    <Button variant="outline" size="sm" onClick={() => handleOpenEdit(app)}>Editar</Button>
+                    <Button variant="destructive" size="sm" onClick={() => handleDelete(app.id)}>Cancelar</Button>
+                  </div>
                 </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-7 gap-2">
-              {Array.from({ length: monthStart.getDay() }).map((_, idx) => (
-                <div key={`empty-${idx}`} className="aspect-square" />
-              ))}
-              {daysInMonth.map((day) => {
-                const dayAppointments = getAppointmentsForDay(day);
-                const isToday = isSameDay(day, new Date());
-
-                return (
-                  <div
-                    key={day.toString()}
-                    className={`
-                      aspect-square p-2 rounded-lg border transition-colors cursor-pointer
-                      ${isToday ? 'border-primary bg-primary/5' : 'border-border hover:bg-accent/5'}
-                      ${!isSameMonth(day, currentDate) ? 'opacity-50' : ''}
-                    `}
-                    onClick={() => {
-                      setSelectedDate(day);
-                      setIsNewAppointmentOpen(true);
-                    }}
-                  >
-                    <div className="text-sm font-medium text-foreground mb-1">
-                      {format(day, 'd')}
-                    </div>
-                    <div className="space-y-1">
-                      {dayAppointments.slice(0, 2).map((apt) => (
-                        <div
-                          key={apt.id}
-                          className="text-xs p-1 rounded bg-primary/10 text-primary truncate"
-                        >
-                          {apt.startTime} {apt.specialty}
-                        </div>
-                      ))}
-                      {dayAppointments.length > 2 && (
-                        <div className="text-xs text-muted-foreground">
-                          +{dayAppointments.length - 2} mais
-                        </div>
-                      )}
-                    </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-slate-700">
+                    {new Date(app.startTime).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} 
+                    {' - '} 
+                    {new Date(app.endTime).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {scheduledAppointments.length === 0 ? (
-              <div className="text-center py-12">
-                <Calendar className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground">Nenhuma consulta agendada</p>
-              </div>
-            ) : (
-              scheduledAppointments.map((apt) => {
-                const patient = mockPatients.find(p => p.id === apt.patientId);
-                const aptDate = parseISO(apt.date);
-
-                return (
-                  <div
-                    key={apt.id}
-                    className="flex items-start gap-4 p-4 rounded-lg border border-border hover:bg-accent/5 transition-colors"
-                  >
-                    <div className="flex-shrink-0">
-                      <div className="w-14 h-14 rounded-lg bg-primary/10 flex flex-col items-center justify-center">
-                        <span className="text-xs font-medium text-primary">
-                          {format(aptDate, 'MMM', { locale: ptBR }).toUpperCase()}
-                        </span>
-                        <span className="text-xl font-bold text-primary">
-                          {format(aptDate, 'd')}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <h4 className="font-semibold text-foreground text-lg">{apt.title}</h4>
-                        <Badge variant="primary">{apt.specialty}</Badge>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Clock className="w-4 h-4" />
-                          <span>{apt.startTime} - {apt.endTime}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <MapPin className="w-4 h-4" />
-                          <span>{apt.location}</span>
-                        </div>
-                      </div>
-                      {apt.notes && (
-                        <p className="text-sm text-muted-foreground mt-2">{apt.notes}</p>
-                      )}
-                      {patient && (
-                        <div className="flex items-center gap-2 mt-3">
-                          <Avatar size="sm" fallback={patient.name} />
-                          <span className="text-sm text-muted-foreground">{patient.name}</span>
-                        </div>
-                      )}
-                    </div>
+                  <div className="text-sm text-slate-500">
+                    {new Date(app.startTime).toLocaleDateString('pt-BR')}
                   </div>
-                );
-              })
-            )}
-          </div>
-        )}
-      </Card>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
 
-      <NewAppointmentModal
-        isOpen={isNewAppointmentOpen}
-        onClose={() => {
-          setIsNewAppointmentOpen(false);
-          setSelectedDate(null);
-        }}
-        defaultDate={selectedDate}
-      />
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+          <Card className="w-full max-w-md shadow-xl animate-in fade-in zoom-in duration-200">
+            <CardHeader>
+              <CardTitle>{editingAppId ? 'Editar Consulta' : 'Agendar Nova Consulta'}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {modalError && (
+                  <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md">
+                    {modalError}
+                  </div>
+                )}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Título</label>
+                  <Input value={title} onChange={(e) => setTitle(e.target.value)} required />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Especialidade</label>
+                  <Input value={specialty} onChange={(e) => setSpecialty(e.target.value)} />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Local</label>
+                  <Input value={location} onChange={(e) => setLocation(e.target.value)} />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Início</label>
+                    <Input type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Término</label>
+                    <Input type="datetime-local" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-3 mt-6">
+                  <Button type="button" variant="outline" onClick={resetForm} disabled={isSubmitting}>Cancelar</Button>
+                  <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'A processar...' : 'Confirmar'}</Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
 
-interface NewAppointmentModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  defaultDate?: Date | null;
-}
-
-function NewAppointmentModal({ isOpen, onClose, defaultDate }: NewAppointmentModalProps) {
-  const [formData, setFormData] = useState({
-    title: '',
-    specialty: '',
-    location: '',
-    date: defaultDate ? format(defaultDate, 'yyyy-MM-dd') : '',
-    startTime: '',
-    endTime: '',
-    notes: '',
-    patientId: mockPatients[0]?.id || '',
-    participants: [] as string[],
-  });
-
-  const specialties = [
-    { value: '', label: 'Selecione a especialidade' },
-    { value: 'Cardiologia', label: 'Cardiologia' },
-    { value: 'Ortopedia', label: 'Ortopedia' },
-    { value: 'Oftalmologia', label: 'Oftalmologia' },
-    { value: 'Geriatria', label: 'Geriatria' },
-    { value: 'Neurologia', label: 'Neurologia' },
-    { value: 'Dermatologia', label: 'Dermatologia' },
-    { value: 'Laboratório', label: 'Exames Laboratoriais' },
-    { value: 'Outro', label: 'Outro' },
-  ];
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onClose();
-  };
-
-  return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Nova Consulta" size="lg">
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <Input
-          label="Título da consulta"
-          placeholder="Ex: Consulta Cardiologia"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          required
-        />
-
-        <Select
-          label="Especialidade"
-          options={specialties}
-          value={formData.specialty}
-          onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
-          required
-        />
-
-        <Select
-          label="Paciente"
-          options={[
-            { value: '', label: 'Selecione o paciente' },
-            ...mockPatients.map(p => ({ value: p.id, label: p.name }))
-          ]}
-          value={formData.patientId}
-          onChange={(e) => setFormData({ ...formData, patientId: e.target.value })}
-          required
-        />
-
-        <Input
-          label="Local"
-          placeholder="Ex: Hospital São Lucas - Sala 304"
-          value={formData.location}
-          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-          required
-        />
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Input
-            type="date"
-            label="Data"
-            value={formData.date}
-            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-            required
-          />
-          <Input
-            type="time"
-            label="Início"
-            value={formData.startTime}
-            onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-            required
-          />
-          <Input
-            type="time"
-            label="Término"
-            value={formData.endTime}
-            onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-            required
-          />
-        </div>
-
-        <Textarea
-          label="Observações"
-          placeholder="Adicione informações relevantes sobre a consulta"
-          value={formData.notes}
-          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-        />
-
-        <div className="flex gap-3 pt-4">
-          <Button type="button" variant="outline" onClick={onClose} className="flex-1">
-            Cancelar
-          </Button>
-          <Button type="submit" variant="primary" className="flex-1">
-            Salvar Consulta
-          </Button>
-        </div>
-      </form>
-    </Modal>
-  );
-}

@@ -1,149 +1,63 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { MainLayout } from './components/layout/MainLayout';
-import { Home } from './pages/Home';
+
+// Páginas
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
 import { Dashboard } from './pages/Dashboard';
 import { Agenda } from './pages/Agenda';
-import { Historico } from './pages/Historico';
 import { RedeApoio } from './pages/RedeApoio';
-import { Perfil } from './pages/Perfil';
 import { Notificacoes } from './pages/Notificacoes';
+import { Perfil } from './pages/Perfil';
 
-function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const { user, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-background">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Carregando...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!user) {
+// Componente para proteger rotas privadas
+function ProtectedRoute({ children }: { children: JSX.Element }) {
+  const { token } = useAuth();
+  
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
 
-  return <>{children}</>;
+  return children;
 }
 
-function PublicRoute({ children, redirectIfAuthenticated = true }: { children: React.ReactNode; redirectIfAuthenticated?: boolean }) {
-  const { user, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-background">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Carregando...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (user && redirectIfAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  return <>{children}</>;
-}
-
-function AppRoutes() {
+export function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <PublicRoute>
-            <Signup />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          <PrivateRoute>
-            <MainLayout>
-              <Dashboard />
-            </MainLayout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/agenda"
-        element={
-          <PrivateRoute>
-            <MainLayout>
-              <Agenda />
-            </MainLayout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/historico"
-        element={
-          <PrivateRoute>
-            <MainLayout>
-              <Historico />
-            </MainLayout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/rede-apoio"
-        element={
-          <PrivateRoute>
-            <MainLayout>
-              <RedeApoio />
-            </MainLayout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/perfil"
-        element={
-          <PrivateRoute>
-            <MainLayout>
-              <Perfil />
-            </MainLayout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/notificacoes"
-        element={
-          <PrivateRoute>
-            <MainLayout>
-              <Notificacoes />
-            </MainLayout>
-          </PrivateRoute>
-        }
-      />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Rotas Públicas */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          {/* Rotas Privadas (Protegidas) encapsuladas no MainLayout (Sidebar/Navigation) */}
+          <Route 
+            path="/" 
+            element={
+              <ProtectedRoute>
+                <MainLayout />
+              </ProtectedRoute>
+            }
+          >
+            {/* Redirecionar a raiz para o Dashboard */}
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="agenda" element={<Agenda />} />
+            <Route path="rede-apoio" element={<RedeApoio />} />
+            <Route path="notificacoes" element={<Notificacoes />} />
+            <Route path="perfil" element={<Perfil />} />
+          </Route>
+
+          {/* Fallback para rotas inexistentes */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
-export default function App() {
-  return (
-    <BrowserRouter>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </BrowserRouter>
-  );
-}
+export default App;
+

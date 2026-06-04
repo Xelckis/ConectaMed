@@ -7,6 +7,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
@@ -48,6 +49,15 @@ func main() {
 
 	router := gin.Default()
 
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173", "http://localhost:3000"}, // As portas do seu frontend
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong! ConectaMed API está online.",
@@ -57,6 +67,18 @@ func main() {
 	userRepo := repository.NewUserRepository(pool)
 	userService := service.NewUserService(userRepo)
 	userHandler := handler.NewUserHandler(userService)
+	patientRepo := repository.NewPatientRepository(pool)
+	patientService := service.NewPatientService(patientRepo)
+	patientHandler := handler.NewPatientHandler(patientService)
+	appointmentRepo := repository.NewAppointmentRepository(pool)
+	appointmentService := service.NewAppointmentService(appointmentRepo)
+	appointmentHandler := handler.NewAppointmentHandler(appointmentService)
+	networkRepo := repository.NewNetworkRepository(pool)
+	networkService := service.NewNetworkService(networkRepo, userRepo)
+	networkHandler := handler.NewNetworkHandler(networkService)
+	notificationRepo := repository.NewNotificationRepository(pool)
+	notificationService := service.NewNotificationService(notificationRepo)
+	notificationHandler := handler.NewNotificationHandler(notificationService)
 
 	publicRoutes := router.Group("/api/v1")
 	{
@@ -75,6 +97,24 @@ func main() {
 				"seu_id_no_banco_de_dados": userID,
 			})
 		})
+
+		protectedRoutes.POST("/patients", patientHandler.Create)
+		protectedRoutes.GET("/patients", patientHandler.List)
+
+		protectedRoutes.PUT("/appointments/:id", appointmentHandler.Update)
+		protectedRoutes.DELETE("/appointments/:id", appointmentHandler.Delete)
+
+		protectedRoutes.POST("/appointments", appointmentHandler.Create)
+		protectedRoutes.GET("/patients/:patient_id/appointments", appointmentHandler.ListByPatient)
+
+		protectedRoutes.GET("/patients/:patient_id/network", networkHandler.List)
+		protectedRoutes.POST("/patients/:patient_id/network", networkHandler.Add)
+		protectedRoutes.PUT("/patients/:patient_id/network/:user_id", networkHandler.UpdateRole)
+		protectedRoutes.DELETE("/patients/:patient_id/network/:user_id", networkHandler.Remove)
+
+		protectedRoutes.GET("/notifications", notificationHandler.List)
+		protectedRoutes.PATCH("/notifications/:id/read", notificationHandler.MarkAsRead)
+
 	}
 
 	port := os.Getenv("PORT")

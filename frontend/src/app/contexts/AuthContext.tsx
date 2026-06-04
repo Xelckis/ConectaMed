@@ -69,27 +69,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     void restoreSession();
   }, []);
 
-  const login = async (email: string, password: string) => {
-    setIsLoading(true);
-
+  const login = async (email, password) => {
     try {
-      const loginResponse = await loginUser({ email, password });
-      const profile = await getProfile(loginResponse.token);
-
-      const loggedUser: User = {
-        id: profile.seu_id_no_banco_de_dados,
-        name: getDefaultNameFromEmail(email),
-        email,
-        role: 'MEMBRO',
-      };
-
-      setUser(loggedUser);
-      localStorage.setItem(STORAGE_TOKEN_KEY, loginResponse.token);
-      localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(loggedUser));
-    } finally {
-      setIsLoading(false);
+        const response = await loginUser({ email, password });
+        
+        // 1. Guarda o token para o utilizador não ter de fazer login ao atualizar a página
+        localStorage.setItem('@ConectaMed:token', response.token);
+        setToken(response.token);
+        
+        // 2. Opcional: Buscar logo os dados do perfil do utilizador
+        const profile = await getProfile(response.token);
+        setUser(profile); 
+        
+        return true;
+    } catch (error) {
+        console.error("Erro no login", error);
+        throw error;
     }
-  };
+};
+
 
   const signup = async (name: string, email: string, password: string) => {
     setIsLoading(true);
