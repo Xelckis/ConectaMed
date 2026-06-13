@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.12.13 on win32)" generated="2026-06-12T23:00:27.077470" rpa="false" schemaversion="5">
+<suite id="s1" name="Orivaldo Login" source="C:\Users\Nitro\OneDrive\Documentos\Teste de Software\Entrega_Orivaldo_Cruvinel\robot\orivaldo_login.robot">
+<kw name="Abrir navegador" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:27.531236" level="INFO">Opening browser 'edge' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-06-12T23:00:27.530120" elapsed="2.706284"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-06-12T23:00:30.236404" elapsed="0.041001"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:27.529229" elapsed="2.749176"/>
+</kw>
+<test id="s1-t1" name="CT-UI-ORIVALDO-01 - Deve exibir erro ao tentar login com campos vazios" line="17">
+<kw name="Acessar tela de login" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:30.280418" level="INFO">Opening url 'http://localhost:5173/login'</msg>
+<arg>${URL_LOGIN}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-06-12T23:00:30.280418" elapsed="0.784884"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Entrar na sua conta</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:00:31.065302" elapsed="0.118729"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:30.279420" elapsed="0.904611"/>
+</kw>
+<kw name="Quando solicitar login">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:31.187029" level="INFO">Clicking element 'xpath=//button[normalize-space()='Entrar']'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:31.186032" elapsed="0.298425"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:31.185032" elapsed="0.300421"/>
+</kw>
+<kw name="Entao deve apresentar a mensagem">
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:00:31.487461" elapsed="0.077639"/>
+</kw>
+<arg>Por favor, preencha todos os campos</arg>
+<status status="PASS" start="2026-06-12T23:00:31.486457" elapsed="0.078643"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:30.278405" elapsed="1.287696"/>
+</test>
+<test id="s1-t2" name="CT-UI-ORIVALDO-02 - Deve navegar para cadastro pela tela de login" line="21">
+<kw name="Acessar tela de login" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:31.570744" level="INFO">Opening url 'http://localhost:5173/login'</msg>
+<arg>${URL_LOGIN}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-06-12T23:00:31.569746" elapsed="0.202865"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Entrar na sua conta</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:00:31.773610" elapsed="0.275159"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:31.568720" elapsed="0.480049"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:32.050776" level="INFO">Clicking element 'xpath=//a[normalize-space()='Criar conta']'.</msg>
+<arg>${LINK_CRIAR_CONTA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:32.049775" elapsed="0.438719"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>/signup</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-06-12T23:00:32.488494" elapsed="0.036060"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:32.561867" level="INFO">Current page contains text 'Criar sua conta'.</msg>
+<arg>Criar sua conta</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-12T23:00:32.525359" elapsed="0.036508"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:31.567400" elapsed="0.995466"/>
+</test>
+<kw name="Fechar navegador" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-06-12T23:00:32.564867" elapsed="2.911855"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:32.563866" elapsed="2.912856"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:27.080335" elapsed="8.396387"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Orivaldo Login" id="s1" pass="2" fail="0" skip="0">Orivaldo Login</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

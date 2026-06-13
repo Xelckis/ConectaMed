@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.12.13 on win32)" generated="2026-06-12T23:00:55.009764" rpa="false" schemaversion="5">
+<suite id="s1" name="Orivaldo Cadastro" source="C:\Users\Nitro\OneDrive\Documentos\Teste de Software\Entrega_Orivaldo_Cruvinel\robot\orivaldo_cadastro.robot">
+<kw name="Abrir navegador" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:55.884068" level="INFO">Opening browser 'edge' to base url 'about:blank'.</msg>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-06-12T23:00:55.882968" elapsed="1.448425"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-06-12T23:00:57.332394" elapsed="0.058357"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:55.882030" elapsed="1.509896"/>
+</kw>
+<test id="s1-t1" name="CT-UI-ORIVALDO-03 - Deve exibir erro no cadastro com campos vazios" line="18">
+<kw name="Acessar tela de cadastro" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:57.394941" level="INFO">Opening url 'http://localhost:5173/signup'</msg>
+<arg>${URL_CADASTRO}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-06-12T23:00:57.394941" elapsed="0.674934"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Criar sua conta</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:00:58.070875" elapsed="0.141149"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:57.393942" elapsed="0.819094"/>
+</kw>
+<kw name="Quando solicitar cadastro">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:58.215043" level="INFO">Clicking element 'xpath=//button[normalize-space()='Criar conta']'.</msg>
+<arg>${BOTAO_CRIAR_CONTA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:58.214036" elapsed="0.179810"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:58.213036" elapsed="0.180810"/>
+</kw>
+<kw name="Entao deve apresentar a mensagem">
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:00:58.394844" elapsed="0.028016"/>
+</kw>
+<arg>Por favor, preencha todos os campos</arg>
+<status status="PASS" start="2026-06-12T23:00:58.394844" elapsed="0.028016"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:57.391926" elapsed="1.030934"/>
+</test>
+<test id="s1-t2" name="CT-UI-ORIVALDO-04 - Deve exibir erro quando senha nao atende aos requisitos" line="22">
+<kw name="Acessar tela de cadastro" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:58.425863" level="INFO">Opening url 'http://localhost:5173/signup'</msg>
+<arg>${URL_CADASTRO}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-06-12T23:00:58.425863" elapsed="0.092318"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Criar sua conta</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:00:58.518181" elapsed="0.030533"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:58.425863" elapsed="0.122851"/>
+</kw>
+<kw name="Informar dados de cadastro">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:58.551726" level="INFO">Typing text 'Orivaldo Cruvinel' into text field 'xpath=//input[@placeholder='Maria Silva']'.</msg>
+<arg>${INPUT_NOME}</arg>
+<arg>${nome}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:58.550724" elapsed="0.299811"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:58.852050" level="INFO">Typing text 'orivaldo.teste@example.com' into text field 'xpath=//input[@placeholder='seu@email.com']'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:58.850535" elapsed="0.234763"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:59.087297" level="INFO">Typing password into text field 'xpath=(//input[@type='password'])[1]'.</msg>
+<msg time="2026-06-12T23:00:59.180457" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>${senha}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:59.086299" elapsed="0.235243"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:59.322542" level="INFO">Typing password into text field 'xpath=(//input[@type='password'])[2]'.</msg>
+<msg time="2026-06-12T23:00:59.422433" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_CONFIRMAR}</arg>
+<arg>${confirmacao}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:59.322542" elapsed="0.240877"/>
+</kw>
+<arg>Orivaldo Cruvinel</arg>
+<arg>orivaldo.teste@example.com</arg>
+<arg>abc123</arg>
+<arg>abc123</arg>
+<status status="PASS" start="2026-06-12T23:00:58.549718" elapsed="1.013701"/>
+</kw>
+<kw name="Quando solicitar cadastro">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:59.565420" level="INFO">Clicking element 'xpath=//button[normalize-space()='Criar conta']'.</msg>
+<arg>${BOTAO_CRIAR_CONTA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:59.564416" elapsed="0.173277"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:59.563419" elapsed="0.174274"/>
+</kw>
+<kw name="Entao deve apresentar a mensagem">
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:00:59.738693" elapsed="0.028781"/>
+</kw>
+<arg>A senha não atende aos requisitos mínimos</arg>
+<status status="PASS" start="2026-06-12T23:00:59.738693" elapsed="0.029784"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:58.423860" elapsed="1.344617"/>
+</test>
+<test id="s1-t3" name="CT-UI-ORIVALDO-05 - Deve exibir erro quando confirmacao de senha diverge" line="27">
+<kw name="Acessar tela de cadastro" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:59.771475" level="INFO">Opening url 'http://localhost:5173/signup'</msg>
+<arg>${URL_CADASTRO}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-06-12T23:00:59.771475" elapsed="0.066315"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Criar sua conta</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:00:59.837790" elapsed="0.022003"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:59.770477" elapsed="0.089316"/>
+</kw>
+<kw name="Informar dados de cadastro">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:00:59.862794" level="INFO">Typing text 'Orivaldo Cruvinel' into text field 'xpath=//input[@placeholder='Maria Silva']'.</msg>
+<arg>${INPUT_NOME}</arg>
+<arg>${nome}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:00:59.861792" elapsed="0.307081"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:01:00.169872" level="INFO">Typing text 'orivaldo.teste@example.com' into text field 'xpath=//input[@placeholder='seu@email.com']'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:01:00.168873" elapsed="0.291846"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:01:00.462721" level="INFO">Typing password into text field 'xpath=(//input[@type='password'])[1]'.</msg>
+<msg time="2026-06-12T23:01:00.534504" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>${senha}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:01:00.461715" elapsed="0.192222"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:01:00.656406" level="INFO">Typing password into text field 'xpath=(//input[@type='password'])[2]'.</msg>
+<msg time="2026-06-12T23:01:00.790118" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_CONFIRMAR}</arg>
+<arg>${confirmacao}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:01:00.655383" elapsed="0.248965"/>
+</kw>
+<arg>Orivaldo Cruvinel</arg>
+<arg>orivaldo.teste@example.com</arg>
+<arg>Senha123</arg>
+<arg>Senha321</arg>
+<status status="PASS" start="2026-06-12T23:00:59.860797" elapsed="1.043551"/>
+</kw>
+<kw name="Quando solicitar cadastro">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-06-12T23:01:00.906614" level="INFO">Clicking element 'xpath=//button[normalize-space()='Criar conta']'.</msg>
+<arg>${BOTAO_CRIAR_CONTA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T23:01:00.905548" elapsed="0.155247"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:01:00.905548" elapsed="0.155247"/>
+</kw>
+<kw name="Entao deve apresentar a mensagem">
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>${mensagem}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T23:01:01.061801" elapsed="0.028450"/>
+</kw>
+<arg>As senhas não coincidem</arg>
+<status status="PASS" start="2026-06-12T23:01:01.061801" elapsed="0.028450"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:59.769479" elapsed="1.321772"/>
+</test>
+<kw name="Fechar navegador" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-06-12T23:01:01.093251" elapsed="4.023778"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:01:01.092251" elapsed="4.025778"/>
+</kw>
+<status status="PASS" start="2026-06-12T23:00:55.014761" elapsed="10.103268"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Orivaldo Cadastro" id="s1" pass="3" fail="0" skip="0">Orivaldo Cadastro</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
