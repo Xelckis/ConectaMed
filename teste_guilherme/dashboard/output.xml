@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.0 on win32)" generated="2026-06-12T22:40:39.684784" rpa="false" schemaversion="5">
+<suite id="s1" name="Dashboard" source="C:\Users\Luke\Desktop\ConectaMed\teste_guilherme\dashboard\dashboard.robot">
+<kw name="Open Browser To Login" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-12T22:40:40.620677" level="INFO">Opening browser 'chrome' to base url 'http://localhost:5173/login'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-06-12T22:40:40.620100" elapsed="3.191716"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-06-12T22:40:43.812435" elapsed="0.095199"/>
+</kw>
+<status status="PASS" start="2026-06-12T22:40:40.618286" elapsed="3.289698"/>
+</kw>
+<test id="s1-t1" name="CT01 - Login deve redirecionar para Dashboard" line="12">
+<kw name="Dado que o usuário preenche o login corretamente">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-12T22:40:43.912873" level="INFO">Typing text 'teste@teste.com' into text field 'xpath=//input[@type="email"]'.</msg>
+<arg>xpath=//input[@type="email"]</arg>
+<arg>teste@teste.com</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T22:40:43.911533" elapsed="0.436254"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-12T22:40:44.349206" level="INFO">Typing text '123456' into text field 'xpath=//input[@type="password"]'.</msg>
+<arg>xpath=//input[@type="password"]</arg>
+<arg>123456</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T22:40:44.348330" elapsed="0.222967"/>
+</kw>
+<status status="PASS" start="2026-06-12T22:40:43.910693" elapsed="0.661348"/>
+</kw>
+<kw name="Quando ele clicar em entrar">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-12T22:40:44.580161" level="INFO">Clicking button 'xpath=//button[contains(., "Entrar")]'.</msg>
+<arg>xpath=//button[contains(., "Entrar")]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-12T22:40:44.579401" elapsed="0.271621"/>
+</kw>
+<status status="PASS" start="2026-06-12T22:40:44.578537" elapsed="0.273100"/>
+</kw>
+<kw name="Então o sistema deve abrir o dashboard">
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Meus Pacientes</arg>
+<arg>5s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-06-12T22:40:44.854178" elapsed="0.029864"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-12T22:40:44.905541" level="INFO">Current page contains text 'Meus Pacientes'.</msg>
+<arg>Meus Pacientes</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-12T22:40:44.884553" elapsed="0.021233"/>
+</kw>
+<status status="PASS" start="2026-06-12T22:40:44.852563" elapsed="0.053522"/>
+</kw>
+<status status="PASS" start="2026-06-12T22:40:43.908294" elapsed="0.998381"/>
+</test>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-06-12T22:40:44.908722" elapsed="3.065269"/>
+</kw>
+<status status="PASS" start="2026-06-12T22:40:39.689351" elapsed="8.284988"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Dashboard" id="s1" pass="1" fail="0" skip="0">Dashboard</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
